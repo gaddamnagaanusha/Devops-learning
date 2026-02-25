@@ -1,0 +1,11 @@
+
+fruits_names = tolist([
+  "apple",
+  "banana",
+  "orange",
+])
+fruits_set = toset([
+  "apple",
+  "banana",
+  "orange",
+])
