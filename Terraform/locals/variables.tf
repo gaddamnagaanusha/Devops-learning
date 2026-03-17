@@ -10,10 +10,15 @@ variable "environment" {
 
 }
 
+# variable "instance_name" {
+#     type = string
+#     default = "${var.name}-${var.environment}"  #this will not work because we cannot use variable inside variable, we have to use local for this
+# }
+
 variable "ec2_tags" {
     default = {
         name = "locals-demo"
-        environment = "dev"
+        environment = "prod"
 
     }
   
@@ -21,7 +26,7 @@ variable "ec2_tags" {
 
 variable "sg_tags" {
     default = {
-        name = "locals-demo"
+        name = "localssg-demo"
     }
   
 }

@@ -1,6 +1,6 @@
 data "aws_ami" "devops" {
    most_recent      = true
-   owners           = ["973714476881"]
+   owners           = ["973714476881"] # AMI AWS account ID
 
   filter {
     name   = "name"
