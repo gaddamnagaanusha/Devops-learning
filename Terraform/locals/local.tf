@@ -3,7 +3,7 @@ locals {
   instance_type = "t3.micro"
   common_tags ={
     project = "roboshop"
-    Environment = "dev"
+    environment = "dev"
     terraform = "true"
   }
 

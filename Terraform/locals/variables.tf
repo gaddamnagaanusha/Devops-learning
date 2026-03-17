@@ -17,7 +17,7 @@ variable "environment" {
 
 variable "ec2_tags" {
     default = {
-        name = "locals-demo"
+        project = "locals-demo"
         environment = "prod"
 
     }
