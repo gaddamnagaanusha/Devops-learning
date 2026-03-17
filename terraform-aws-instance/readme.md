@@ -13,3 +13,9 @@ Outputs
 * instance_id - ID of the instance created
 * public_ip - Public IP of the instance created
 * private_ip - Private IP of the instance created*
+
+## outputs
+ 
+* instance_id = id of the instance created
+* public_ip = publicip of the instance created
+* private_ip = privateip of the instance created

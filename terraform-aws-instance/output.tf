@@ -1,0 +1,13 @@
+output "ec2_output" {
+  value       = aws_instance.this.id
+}
+
+output "public_ip" {
+    value = aws_instance_this.public_ip
+  
+}
+
+output "private_ip" {
+    value = aws_instance.this.private_ip
+  
+}
