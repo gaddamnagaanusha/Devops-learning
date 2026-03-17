@@ -12,19 +12,26 @@ resource "aws_instance" "example" {
     command = "echo '${self.public_ip}' > inventory.ini"
     
   }
-
-  connection {
+ 
+  connection {              #this is used to connect to the instance using ssh
     type     = "ssh"
     user     = "ec2-user"
     password = "DevOps321"
     host     = self.public_ip
   }
 
-  provisioner "remote-exec" {
+  provisioner "remote-exec" {   #this is going to execute the command on the remote instance
     inline = [
       "sudo dnf install nginx -y",
       "sudo systemctl start nginx"
     ]
+  }
+
+  provisioner "remote-exec" {   #this is going to execute the command on the remote instance when the instance is destroyed
+    inline = [
+      "sudo systemctl stop nginx"
+    ]
+    when = destroy
   }
 
   tags = {
