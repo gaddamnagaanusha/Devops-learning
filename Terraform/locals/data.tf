@@ -1,6 +1,6 @@
 data "aws_ami" "devops" {
    most_recent      = true
-   owners           = ["self"]
+   owners           = ["973714476881"]
 
   filter {
     name   = "name"
