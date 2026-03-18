@@ -3,7 +3,7 @@ output "ec2_output" {
 }
 
 output "public_ip" {
-    value = aws_instance_this.public_ip
+    value = aws_instance.this.public_ip
   
 }
 
