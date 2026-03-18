@@ -1,6 +1,5 @@
 module "vpc" {
-    # source = "../terraform-aws-vpc"
-    source = "git::https://github.com/gaddamnagaanusha/Devops-learning/tree/Main/terraform-aws-vpc?ref=main"
+    source = "../terraform-aws-vpc"
     project = "roboshop"
     environment = "dev"
 
