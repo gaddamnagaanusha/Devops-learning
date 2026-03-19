@@ -20,7 +20,5 @@ resource "aws_subnet" "public" {
   availability_zone = local.availability_zones_names[count.index]
   map_public_ip_on_launch = true 
 
-  tags = {
-    Name = "Main"
-  }
+  tags = local. public_subnet_tags
 }
