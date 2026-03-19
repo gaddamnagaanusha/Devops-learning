@@ -13,11 +13,14 @@ resource "aws_internet_gateway" "gw" {
   tags = local.igw_final_tags
 }
 
-# resource "aws_subnet" "public" {
-#   count = length(var.public_subnet_cidrs) #this is for creating multiple public subnets based on the number of cidr blocks we have in the public_subnet_cidrs variable, we are using count meta argument to create multiple resources based on the number of cidr blocks we have in the public_subnet_cidrs variable
-#   vpc_id     = aws_vpc.main.id
-#   cidr_block = var.public_subnet_cidrs[count.index] #this is for getting the cidr block for each subnet from the public_subnet_cidrs variable based on the index of the count, we are using count.index to get the index of the current resource being created, so that we can get the corresponding cidr block from the public_subnet_cidrs variable
-#   tags = {
-#     Name = "Main"
-#   }
-# }
+resource "aws_subnet" "public" {
+  count = length(var.public_subnet_cidrs) #this is for creating multiple public subnets based on the number of cidr blocks we have in the public_subnet_cidrs variable, we are using count meta argument to create multiple resources based on the number of cidr blocks we have in the public_subnet_cidrs variable
+  vpc_id     = aws_vpc.main.id
+  cidr_block = var.public_subnet_cidrs[count.index] #this is for getting the cidr block for each subnet from the public_subnet_cidrs variable based on the index of the count
+  availability_zone = local.availability_zones_names[count.index]
+  map_public_ip_on_launch = true 
+
+  tags = {
+    Name = "Main"
+  }
+}
