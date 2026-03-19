@@ -169,5 +169,23 @@ resource "aws_route" "database" {
   nat_gateway_id =  aws_nat_gateway.nat_gateway.id
 }
 
+resource "aws_route_table_association" "public" {
+  count = length(var.public_subnet_cidrs) #this is for associating multiple public subnets with the public route table based on the number of cidr blocks we have in the public_subnet_cidrs variable, we are using count meta argument to create multiple resources based on the number of cidr blocks we have in the public_subnet_cidrs variable
+  subnet_id      = aws_subnet.public[count.index].id
+  route_table_id = aws_route_table.public.id
+}
+
+resource "aws_route_table_association" "private" {
+  count = length(var.private_subnet_cidrs) #this is for associating multiple private subnets with the private route table based on the number of cidr blocks we have in the private_subnet_cidrs variable, we are using count meta argument to create multiple resources based on the number of cidr blocks we have in the private_subnet_cidrs variable
+  subnet_id      = aws_subnet.private[count.index].id
+  route_table_id = aws_route_table.private.id
+}
+
+resource "aws_route_table_association" "database" {
+  count = length(var.database_subnet_cidrs) #this is for associating multiple database subnets with the database route table based on the number of cidr blocks we have in the database_subnet_cidrs variable, we are using count meta argument to create multiple resources based on the number of cidr blocks we have in the database_subnet_cidrs variable
+  subnet_id      = aws_subnet.database[count.index].id
+  route_table_id = aws_route_table.database.id
+}
+
 
 
