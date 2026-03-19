@@ -70,3 +70,51 @@ resource "aws_subnet" "database" {
 )
 
 }
+
+#public route table
+resource "aws_route_table" "public" {
+  vpc_id = aws_vpc.main.id
+
+  tags = merge(
+    local.common_tags,
+     #roboshop-dev-public
+    {
+        Name = "${var.project}-${var.environment}-public" 
+     }, #this is for giving the name to our public route table, we are using the merge function to merge the common_tags with the name tag, so that we can have the name tag in our public route table along with the common tags
+   
+    var.public_route_table_tags
+)
+
+}  
+
+#private route table
+resource "aws_route_table" "private" {
+  vpc_id = aws_vpc.main.id
+
+  tags = merge(
+    local.common_tags,
+     #roboshop-dev-private
+    {
+        Name = "${var.project}-${var.environment}-private" 
+     }, #this is for giving the name to our private route table, we are using the merge function to merge the common_tags with the name tag, so that we can have the name tag in our private route table along with the common tags
+   
+    var.private_route_table_tags
+)
+
+}  
+
+#database route table
+resource "aws_route_table" "database" {
+  vpc_id = aws_vpc.main.id
+
+  tags = merge(
+    local.common_tags,
+     #roboshop-dev-database
+    {
+        Name = "${var.project}-${var.environment}-database" 
+     }, #this is for giving the name to our database route table, we are using the merge function to merge the common_tags with the name tag, so that we can have the name tag in our database route table along with the common tags
+   
+    var.database_route_table_tags
+)
+
+}  
