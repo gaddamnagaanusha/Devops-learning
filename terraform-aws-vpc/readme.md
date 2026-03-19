@@ -6,4 +6,5 @@
 * route tables - > public private database
 * associatons and routes
 * EIP
-* NAT gateway
+* NAT gateway  -> to provide engress access to resources in private subnets
+
