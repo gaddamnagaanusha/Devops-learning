@@ -118,3 +118,56 @@ resource "aws_route_table" "database" {
 )
 
 }  
+
+resource "aws_route" "public" {
+  route_table_id            = aws_route_table.public.id
+  destination_cidr_block    = "0.0.0.0/0"
+  gateway_id =  aws_internet_gateway.gw.id
+}
+
+#elastic ip for nat gateway
+
+resource "aws_eip" "nat" {
+  domain   = "vpc"
+    tags = merge(
+        local.common_tags,
+         #roboshop-dev-nat
+        {
+            Name = "${var.project}-${var.environment}-nat" 
+         }, #this is for giving the name to our nat gateway elastic ip, we are using the merge function to merge the common_tags with the name tag, so that we can have the name tag in our nat gateway elastic ip along with the common tags
+     
+        var.eip_tags
+)
+}
+
+resource "aws_nat_gateway" "nat_gateway" {
+  allocation_id = aws_eip.nat.id
+  subnet_id     = aws_subnet.public[0].id   # here we creating this is us-east-1a AZ
+
+  tags = merge(
+        local.common_tags,
+        
+        {
+            Name = "${var.project}-${var.environment}"
+        },     
+        var.nat_gateway_tags
+)
+  # To ensure proper ordering, it is recommended to add an explicit dependency
+  # on the Internet Gateway for the VPC.
+  depends_on = [aws_internet_gateway.gw]
+}
+
+resource "aws_route" "private" {
+  route_table_id            = aws_route_table.private.id
+  destination_cidr_block    = "0.0.0.0/0"
+  nat_gateway_id =  aws_nat_gateway.nat_gateway.id
+}
+
+resource "aws_route" "database" {
+  route_table_id            = aws_route_table.database.id
+  destination_cidr_block    = "0.0.0.0/0"
+  nat_gateway_id =  aws_nat_gateway.nat_gateway.id
+}
+
+
+
