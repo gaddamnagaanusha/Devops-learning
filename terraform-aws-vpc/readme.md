@@ -10,3 +10,5 @@
 * EIP
 * NAT gateway  -> to provide engress access to resources in private subnets
 
+* VPC peering default vpc on condition
+* route table entires thorugh peering
