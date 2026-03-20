@@ -1,4 +1,6 @@
-# vpc setup
+# Terraform aws vpc setup
+
+  ## This module creates following resources
 
 * create VPC
 * create IGW and attach to VPC
