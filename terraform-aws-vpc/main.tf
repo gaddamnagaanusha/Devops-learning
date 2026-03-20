@@ -188,32 +188,5 @@ resource "aws_route_table_association" "database" {
 }
 
 
-resource "aws_vpc_peering_connection" "default" {
-  count = var.is_peering_required ? 1 : 0
-  #acceptor
-  peer_vpc_id   = data.aws_vpc.default_vpc
 
-  #requester
-  vpc_id        = aws_vpc.main.id
-
-  auto_accept = true  #this is for automatically accepting the peering connection request, if we set this to false then we have to manually accept the peering connection request from the accepter side, but if we set this to true then the peering connection request will be automatically accepted from the accepter side.
-
-  accepter {
-    allow_remote_vpc_dns_resolution = true
-  }
-
-  requester {
-    allow_remote_vpc_dns_resolution = true
-  }
-
-  tags = merge(
-      local.common_tags,
-     #roboshop-dev-peering
-      {
-        Name = "${var.project}-${var.environment}-defult" 
-       }, #this is for giving the name to our vpc peering connection, we are using the merge function to merge the common_tags with the name tag, so that we can have the name tag in our vpc peering connection along with the common tags
-   
-        var.peering_tags
-)
-}
 
