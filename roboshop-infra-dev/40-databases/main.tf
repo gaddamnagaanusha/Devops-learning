@@ -4,21 +4,7 @@ resource "aws_instance" "mongodb" {
   subnet_id = local.database_subnet_ids
   vpc_security_group_ids = [local.mongodb_sg_id]
 
-  root_block_device {  #increasing root block device configuration 
-     volume_size = 50
-     volume_type = "gp3"
-     tags = merge(
-    {
-      Name = "${var.project}-${var.environment}-bastion"
-    },
-    local.common_tags,
-  )
-  }
-
-  
-
-
-  tags = merge(
+tags = merge(
     {
       Name = "${var.project}-${var.environment}-mongodb"
     },
