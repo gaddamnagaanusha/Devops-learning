@@ -1,4 +1,4 @@
-module "vpc" {
+module "sg" {
     source = "../../terraform-aws-sg"
     project = var.project
     environment = var.environment
