@@ -1,0 +1,24 @@
+Bastion SG rules
+
+- name: bastion_internet
+  port = 22 #ssh default port
+  src =internet
+  dst = bastion
+ 
+ 
+ Mongodb SG rules
+ 
+ - name: mangodb_bastion
+   port = 22 #ssh default port
+   src = bastion
+   dst = mongodb
+ 
+ - name: mongodb_catalogue #mongodb acception connection form catalogue component
+   port = 27017 
+   src = catalogue
+   dst = mongodb
+
+ - name: mongodb_user
+   port = 27017 
+   src = user
+   dst = mongodb  
