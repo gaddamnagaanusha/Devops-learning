@@ -3,6 +3,7 @@ resource "aws_instance" "bastion" {
   instance_type = "t3.micro"
   subnet_id = local.public_subnet_ids
   vpc_security_group_ids = [local.bastion_sg_id]
+  iam_instance_profile = aws_iam_instance_profile.bastion.name
 
 
   tags = merge(
@@ -14,7 +15,7 @@ resource "aws_instance" "bastion" {
 
 }
 
-resource "aws_iam_role" "bastion_role" {
+resource "aws_iam_role" "bastion" {
   name = "RoboshopDevBastion"
 
   # Terraform's "jsonencode" function converts a
@@ -43,5 +44,12 @@ resource "aws_iam_role" "bastion_role" {
 
 
 resource "aws_iam_role_policy_attachment" "bastion" {
-  role       = aws_iam_role.bastion_role.name
+  role       = aws_iam_role.bastion.name
   policy_arn = "arn:aws:iam::aws:policy/AmazonEC2FullAccess"
+}
+
+  # Create the instance profile
+   resource "aws_iam_instance_profile" "bastion" {
+      name = "${var.project}-${var.environment}-bastion"
+      role = aws_iam_role.bastion.name
+}
