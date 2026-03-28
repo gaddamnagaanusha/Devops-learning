@@ -1,5 +1,6 @@
 #!/bin/bash
 
+component=$1
 dnf install ansible -y
 
 cd /home/ec2-user
@@ -8,4 +9,4 @@ git clone https://github.com/gaddamnagaanusha/Devops-learning//ansible-roboshop-
 
 cd ansible-roboshop-roles-tf
 
-ansible-playbook -e component=mongodb roboshop.yaml
+ansible-playbook -e component=${component} roboshop.yaml
