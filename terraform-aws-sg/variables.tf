@@ -1,10 +1,9 @@
 variable "project" {
-    default = string
+    type = string
 }
 
 variable "environment" {
-    default = string
-  
+    type = string
 }
 
 variable "sg_name" {
